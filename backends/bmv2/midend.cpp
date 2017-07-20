@@ -30,8 +30,10 @@ limitations under the License.
 #include "frontends/p4/unusedDeclarations.h"
 #include "midend/actionsInlining.h"
 #include "midend/actionSynthesis.h"
+#include "midend/commoningParser.h"
 #include "midend/convertEnums.h"
 #include "midend/copyStructures.h"
+#include "midend/copyVariableDetection.h"
 #include "midend/eliminateTuples.h"
 #include "midend/local_copyprop.h"
 #include "midend/localizeActions.h"
@@ -98,6 +100,7 @@ MidEnd::MidEnd(BMV2Options& options) {
         new P4::UniqueParameters(&refMap, &typeMap),
         new P4::SimplifyControlFlow(&refMap, &typeMap),
         new P4::RemoveActionParameters(&refMap, &typeMap),
+        new P4::CommoningParser(&refMap, &typeMap),
         new SynthesizeValidField(&refMap, &typeMap),
         new P4::TypeChecking(&refMap, &typeMap),
         new P4::SimplifyKey(&refMap, &typeMap, new P4::NonMaskLeftValue(&typeMap)),
@@ -117,6 +120,7 @@ MidEnd::MidEnd(BMV2Options& options) {
         new P4::MoveDeclarations(),  // more may have been introduced
         new P4::ConstantFolding(&refMap, &typeMap),
         new P4::LocalCopyPropagation(&refMap, &typeMap),
+        new P4::CopyVariableDetection(&refMap, &typeMap),
         new P4::ConstantFolding(&refMap, &typeMap),
         new P4::MoveDeclarations(),
         new P4::ValidateTableProperties({ "implementation", "size", "counters",

@@ -40,7 +40,9 @@ midend_UNIFIED = \
 	midend/expandLookahead.cpp \
 	midend/noMatch.cpp \
 	midend/tableHit.cpp \
-	midend/expandEmit.cpp
+	midend/expandEmit.cpp \
+	midend/commoningParser.cpp \
+	midend/copyVariableDetection.cpp 
 
 noinst_HEADERS += \
 	midend/actionsInlining.h \
@@ -72,6 +74,8 @@ noinst_HEADERS += \
 	midend/noMatch.h \
 	midend/tableHit.h \
 	midend/midEndLast.h \
-	midend/expandEmit.h
+	midend/expandEmit.h \
+	midend/commoningParser.h \
+	midend/copyVariableDetection.h 
 
 cpplint_FILES += $(midend_UNIFIED) $(midend_NONUNIFIED)
